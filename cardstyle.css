@@ -75,7 +75,10 @@ body {
     margin-bottom: 20px;
     padding: 1% 5px;
     animation: sparkles 2s infinite alternate;
+}
 
+.companion:hover{
+    transform: translateY(-5px);
 }
 
 .manganime li {
