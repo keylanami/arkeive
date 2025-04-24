@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WATCHING LIST</title>
+</head>
+
+<style>
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.box {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    padding: 20px;
+    background-color: rgb(250, 250, 244);
+    width: 300px;
+    text-align: center;
+    border-radius: 15px;
+}
+
+.done { 
+    text-decoration: line-through; 
+    opacity: .6; 
+}
+
+h2{
+    color: slateblue;
+}
+
+input{
+    padding: 10px;
+    border-radius: 7px;
+    border-color: gray;
+}
+
+button {
+    padding-top: 7px;
+    padding-bottom: 7px;
+    background-color: rgb(116, 160, 133);
+    border: 0px;
+    color: whitesmoke;
+    border-radius: 7px;
+    width: 20%;
+
+
+}
+
+li{
+    list-style-type: none;
+}
+
+#list li {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    border-bottom: 1px solid #eee;
+}
+
+#list li .actions {
+    margin-left: auto;
+    display: flex;
+    gap: 8px;
+}
+
+#list .check, .perish{
+    width: 30px;
+}
+
+
+</style>
+<body>
+    <div class="box">
+        <h2>Let's Binge-Watching!</h2>
+        <div class="watches">
+            <input type="text" id="new-watches" placeholder="what do you want to watch later?">
+            <button class="add-list" id="add-list">add</button>
+        </div>
+
+        <ul id="list"></ul>
+    </div>
+
+    <script>
+        const add = document.getElementById('add-list');
+        const newList = document.getElementById('new-watches');
+        const watchList = document.getElementById('list');
+
+        add.addEventListener('click', addTask);
+        newList.addEventListener('keyup', e => {
+            if(e.key === 'Enter') addTask();});
+
+
+        function addTask(){
+            const text = newList.value.trim();
+
+            if(!text) return;
+            const li = document.createElement('li');
+            li.innerHTML = `
+            <span>${text}</span>
+            <div class="actions">
+                <button onclick="toggleDone(this)" class="check">✓</button>
+                <button onclick="deleteList(this)" class="perish">✕</button>
+            </div>
+                
+            `;
+
+            watchList.appendChild(li);
+            newList.value = '';
+        }
+
+        function toggleDone(btn){
+            const li = btn.closest('li');
+            li.classList.toggle('done');
+        }
+
+        function deleteList(btn){
+            const li = btn.closest('li');
+            li.remove();
+        }
+
+        
+    </script>
+    
+</body>
+</html>
